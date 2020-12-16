@@ -1,0 +1,13 @@
+flask
+flask_sqlalchemy
+flask_cors
+flask_httpauth
+passlib
+pymysql
+flask-jwt-extended
+pytz
+python-dateutil
+apscheduler
+Flask-Migrate
+itsdangerous
+uwsgi

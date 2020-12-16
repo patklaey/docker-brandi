@@ -1,0 +1,36 @@
+version: '3.2'
+services:
+  api:
+    image: patklaey/brandi-api:0.1
+    container_name: brandi-api
+    restart: always
+    depends_on:
+      - database
+    ports:
+      - 5001:5000
+    volumes:
+      - ./config.py:/home/html/brandi-dog/config/config.py
+  web:
+    image: patklaey/brandi-web:0.1
+    container_name: brandi-web
+    restart: always
+    depends_on:
+      - api
+    ports:
+      - 8008:80
+    volumes:
+      - ./config.js:/usr/share/nginx/html/js/config.js
+  database:
+    image: webhippie/mariadb:latest
+    container_name: brandi-db
+    restart: always
+    environment:
+      - MARIADB_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+      - MARIADB_USERNAME=${DB_USERNAME}
+      - MARIADB_PASSWORD=${DB_PASSWORD}
+      - MARIADB_DATABASE=${DB_NAME}
+    volumes:
+      - database:/var/lib/mysql
+      - /root/db_backup:/backup
+volumes:
+  database:
